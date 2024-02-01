@@ -12,29 +12,37 @@ final class ViewController: UIViewController {
     @IBOutlet var startSumTextField: UITextField!
     @IBOutlet var taxLabel: UILabel!
     @IBOutlet var planLabel: UILabel!
-    @IBOutlet var calculateButtonLabel: UIButton!
     
     private let tax = 12.7 / 100.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        startSumTextField.keyboardType = .numberPad
-        calculateButtonLabel.layer.cornerRadius = 15
         
         taxLabel.clipsToBounds = true
         taxLabel.layer.cornerRadius = 10
         planLabel.clipsToBounds = true
         planLabel.layer.cornerRadius = 10
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
-            view.addGestureRecognizer(tapGesture)
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(
+            title: "Done",
+            style: .plain,
+            target: self,
+            action:#selector(self.hideKeyboard)
+        )
+        toolbar.setItems([doneButton], animated: false)
+        
+        startSumTextField.keyboardType = .numberPad
+        startSumTextField.inputAccessoryView = toolbar
     }
     
     @objc func hideKeyboard() {
         view.endEditing(true)
+        calculateButtonDidTapped()
     }
     
-    @IBAction func calculateButtonDidTapped() {
+    private func calculateButtonDidTapped() {
         if let startSum = Double(startSumTextField.text ?? "0") {
             let sumAfterTax = Int(startSum - (startSum * tax))
             taxLabel.text = String(sumAfterTax)
