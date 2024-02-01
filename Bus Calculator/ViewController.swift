@@ -25,24 +25,21 @@ final class ViewController: UIViewController {
         
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(
-            title: "Done",
+        
+        let calcButton = UIBarButtonItem(
+            title: "Посчитать",
             style: .plain,
             target: self,
-            action:#selector(self.hideKeyboard)
+            action:#selector(self.calculate)
         )
-        toolbar.setItems([doneButton], animated: false)
+        
+        toolbar.setItems([calcButton], animated: false)
         
         startSumTextField.keyboardType = .numberPad
         startSumTextField.inputAccessoryView = toolbar
     }
     
-    @objc func hideKeyboard() {
-        view.endEditing(true)
-        calculateButtonDidTapped()
-    }
-    
-    private func calculateButtonDidTapped() {
+    @objc func calculate() {
         if let startSum = Double(startSumTextField.text ?? "0") {
             let sumAfterTax = Int(startSum - (startSum * tax))
             taxLabel.text = String(sumAfterTax)
