@@ -22,7 +22,22 @@ final class ViewController: UIViewController {
         taxLabel.layer.cornerRadius = 10
         planLabel.clipsToBounds = true
         planLabel.layer.cornerRadius = 10
-        
+        setupKeyboard()
+    }
+    
+    @objc func calculate() {
+        if let startSum = Double(startSumTextField.text ?? "0") {
+            let sumAfterTax = Int(startSum - (startSum * tax))
+            taxLabel.text = sumAfterTax.formatted()
+            planLabel.text = (sumAfterTax - 100000).formatted()
+        }
+    }
+    
+    @objc func clenaStartSumTextField() {
+        startSumTextField.text = ""
+    }
+    
+    private func setupKeyboard() {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
@@ -33,18 +48,22 @@ final class ViewController: UIViewController {
             action:#selector(self.calculate)
         )
         
-        toolbar.setItems([calcButton], animated: false)
+        let flexibleSpace = UIBarButtonItem(
+            barButtonSystemItem: .flexibleSpace,
+            target: nil,
+            action: nil
+        )
         
-        startSumTextField.keyboardType = .numberPad
+        let cleanButton = UIBarButtonItem(
+            title: "Стереть",
+            style: .plain,
+            target: self,
+            action: #selector(self.clenaStartSumTextField)
+        )
+        
+        toolbar.setItems([cleanButton, flexibleSpace, calcButton], animated: false)
         startSumTextField.inputAccessoryView = toolbar
-    }
-    
-    @objc func calculate() {
-        if let startSum = Double(startSumTextField.text ?? "0") {
-            let sumAfterTax = Int(startSum - (startSum * tax))
-            taxLabel.text = String(sumAfterTax)
-            planLabel.text = String(sumAfterTax - 100000)
-        }
+        startSumTextField.becomeFirstResponder()
     }
 }
 
