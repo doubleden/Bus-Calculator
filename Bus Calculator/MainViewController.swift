@@ -26,7 +26,16 @@ final class MainViewController: UIViewController {
         planFrameLabel.clipsToBounds = true
         planFrameLabel.layer.cornerRadius = 10
         
+        inputSumTF.addTarget(
+            self,
+            action: #selector(textFieldDidChange(_:)),
+            for: .editingChanged
+        )
         inputSumTF.becomeFirstResponder()
+    }
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        textField.text = textField.text?.replacingOccurrences(of: ",", with: ".")
     }
 
     @IBAction func countButtonTapped() {
@@ -44,10 +53,10 @@ final class MainViewController: UIViewController {
 
             if regex.firstMatch(in: inputText, options: [], range: range) != nil {
                 guard let inputNumber = Double(inputSumTF.text ?? ""),
-                      inputNumber > 0 else {
+                      inputNumber > 0.0 else {
                     showAlert(
                         withTitle: "Сумма введена некорректно",
-                        andMessage: "Ввудите сумму больше 0"
+                        andMessage: "Введите сумму больше 0"
                     )
                     return
                 }
