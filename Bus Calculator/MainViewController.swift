@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+final class MainViewController: UIViewController {
 
     @IBOutlet var startSumTextField: UITextField!
     @IBOutlet var taxLabel: UILabel!
