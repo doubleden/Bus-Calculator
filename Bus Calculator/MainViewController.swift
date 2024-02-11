@@ -50,25 +50,25 @@ final class MainViewController: UIViewController {
             return
         }
         
-        checkValidation(for: inputText) {
-            guard let inputNumber = Double(inputSumTF.text ?? ""),
-                  inputNumber > 0.0 else {
-                showAlert(
-                    withTitle: "Сумма введена некорректно",
-                    andMessage: "Введите сумму больше 0"
-                )
-                return
-            }
-            
-            guard let tax = Double(taxValueLabel.text ?? "") else { return }
-            guard let plan = Int(planValueLabel.text ?? "") else { return }
-            
-            let taxDecimal = tax / 100
-            let sumAfterTax = Int(inputNumber - (inputNumber * taxDecimal))
-            
-            taxFrameLabel.text = sumAfterTax.formatted()
-            planFrameLabel.text = (sumAfterTax - plan).formatted()
+        guard isValid(text: inputText) else { return }
+        
+        guard let inputNumber = Double(inputSumTF.text ?? ""),
+                inputNumber > 0.0 else {
+            showAlert(
+                withTitle: "Сумма введена некорректно",
+                andMessage: "Введите сумму больше 0"
+            )
+            return
         }
+            
+        guard let tax = Double(taxValueLabel.text ?? "") else { return }
+        guard let plan = Int(planValueLabel.text ?? "") else { return }
+            
+        let taxDecimal = tax / 100
+        let sumAfterTax = Int(inputNumber - (inputNumber * taxDecimal))
+            
+        taxFrameLabel.text = sumAfterTax.formatted()
+        planFrameLabel.text = (sumAfterTax - plan).formatted()
     }
     
     @IBAction func unwind(for segue: UIStoryboardSegue) {
@@ -76,35 +76,18 @@ final class MainViewController: UIViewController {
             guard let inputTax = settingVC.taxTextField.text else { return }
             guard let inputPlan = settingVC.planTextField.text else { return }
             
-            checkValidation(for: inputTax) {
-                taxValueLabel.text = inputTax.isEmpty ? settingVC.currentTax : inputTax
-            }
-            
-            checkValidation(for: inputPlan) {
-                planValueLabel.text = inputPlan.isEmpty ? settingVC.currentPlan : inputPlan
-            }
+            taxValueLabel.text = inputTax.isEmpty ? settingVC.currentTax : inputTax
+            planValueLabel.text = inputPlan.isEmpty ? settingVC.currentPlan : inputPlan
         }
     }
-    
-    private func checkValidation(for textField: String, _ codeLogic: () -> Void) {
-        do {
-            let regex = try NSRegularExpression(pattern: "^(0|[1-9][0-9]*)(\\.[0-9]+)?$")
-            let regexRange = NSRange(location: 0, length: textField.utf16.count)
+}
 
-            if regex.firstMatch(in: textField, options: [], range: regexRange) != nil {
-                codeLogic()
-            } else {
-                showAlert(
-                    withTitle: "Сумма введена некорректно",
-                    andMessage: "После нуля должна идти точка, если это не целое число."
-                )
-            }
-        } catch {
-            showAlert(
-                withTitle: "Ошибка",
-                andMessage: "Произошла ошибка при обработке ввода. Пожалуйста, попробуйте снова."
-            )
-        }
+//MARK: Check Validation
+extension UIViewController {
+    func isValid(text: String) -> Bool {
+        let numberPattern = "^(0|[1-9][0-9]*)(\\.[0-9]+)?$"
+        return NSPredicate(format: "SELF MATCHES %@", numberPattern)
+            .evaluate(with: text)
     }
 }
 

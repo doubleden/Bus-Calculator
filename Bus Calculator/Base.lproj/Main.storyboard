@@ -182,7 +182,7 @@
                                                     <color key="baseBackgroundColor" red="0.02163000554" green="0.67330300190000003" blue="1.4950329909999999e-16" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <segue destination="zKY-wX-lcf" kind="unwind" unwindAction="unwindFor:" id="Dve-NZ-szE"/>
+                                                    <action selector="saveButtonTapped" destination="UvK-k0-9dC" eventType="touchUpInside" id="1U0-K6-35r"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uml-W5-BoJ">
@@ -213,6 +213,7 @@
                         <outlet property="currentTaxValueLabel" destination="1vf-dr-jhE" id="ssr-Nm-9r4"/>
                         <outlet property="planTextField" destination="ETb-P3-fQF" id="6H4-G9-Nez"/>
                         <outlet property="taxTextField" destination="n5a-aB-37S" id="b07-Kt-N0f"/>
+                        <segue destination="zKY-wX-lcf" kind="unwind" identifier="returnToMain" unwindAction="unwindFor:" id="swU-AS-OkH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fer-Jp-PJ7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
