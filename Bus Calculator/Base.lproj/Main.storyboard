@@ -167,6 +167,9 @@
                                                 <buttonConfiguration key="configuration" style="filled" title="Отмена">
                                                     <color key="baseBackgroundColor" systemColor="systemRedColor"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="cancelButtonTapped" destination="UvK-k0-9dC" eventType="touchUpInside" id="WSg-fW-mbW"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="60Y-AX-Shq">
                                                 <rect key="frame" x="222" y="0.0" width="139" height="40"/>
@@ -174,6 +177,9 @@
                                                 <buttonConfiguration key="configuration" style="filled" title="Сохранить">
                                                     <color key="baseBackgroundColor" red="0.02163000554" green="0.67330300190000003" blue="1.4950329909999999e-16" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <segue destination="zKY-wX-lcf" kind="unwind" unwindAction="unwindFor:" id="Dve-NZ-szE"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <constraints>
@@ -192,13 +198,14 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="currentPlanValueLabel" destination="5wh-Qa-cs1" id="tVb-SX-7rk"/>
+                        <outlet property="currentPlanValueLabel" destination="XER-se-VFc" id="OXG-Cb-oAu"/>
                         <outlet property="currentTaxValueLabel" destination="1vf-dr-jhE" id="ssr-Nm-9r4"/>
                         <outlet property="planTextField" destination="ETb-P3-fQF" id="6H4-G9-Nez"/>
                         <outlet property="taxTextField" destination="n5a-aB-37S" id="b07-Kt-N0f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fer-Jp-PJ7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="zKY-wX-lcf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1819" y="3"/>
         </scene>
@@ -224,10 +231,10 @@
     <resources>
         <image name="gearshape" catalog="system" width="128" height="123"/>
         <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
