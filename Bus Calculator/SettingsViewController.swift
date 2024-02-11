@@ -21,7 +21,7 @@ final class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        currentTaxValueLabel.text = "Текущий процент вычесления: \(currentTax ?? "")"
+        currentTaxValueLabel.text = "Текущий процент: \(currentTax ?? "")"
         currentPlanValueLabel.text = "Текущий план: \(currentPlan ?? "")"
         
         taxTextField.addTarget(
